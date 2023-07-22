@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=f, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        button {
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            border: none;
+            background-color: rgb(255, 135, 227);
+            cursor: pointer;
+            margin: 1rem;
+        }
+
+        button:hover {
+            background-color: rgb(250, 97, 214);
+        }
+
+        button:active {
+            background-color: rgb(255, 0, 195);
+        }
+
+        .img {
+            height: 500px;
+            width: 500px;
+            object-fit: cover;
+            margin: 1rem;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="https://cdn2.thecatapi.com/images/ei0.jpg" alt="" class="img">
+        <button onclick="addImg()">add new img</button>
+    </div>
+    <script>
+        const img = document.getElementsByClassName('img')[0]
+        let appData = {}
+
+        const appDataFunc = async () => {
+            try {
+                const response = await fetch("https://api.thecatapi.com/v1/images/search")
+                appData = await response.json()
+                console.log(appData[0].url)
+            }
+            catch (error) {
+                console.log(error.message)
+            }
+        }
+
+        async function addImg() {
+            await appDataFunc();
+            img.src = `${appData[0].url}`
+        }
+    </script>
+</body>
+
+</html>
