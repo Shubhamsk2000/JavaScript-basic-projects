@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      height: 100vh;
+      background-color: #212121;
+      color: white;
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>Hit Start to get random color on screen</h1>
+    <button id="start" onclick="start()">Start</button>
+    <button id="stop" onclick="stop()">stop</button>
+  </div>
+
+</body>
+<script>
+
+  let runtime;
+  const start = () => {
+    if (!runtime)
+      runtime = setInterval(() => {
+        document.body.style.backgroundColor = colorPicker();
+      }, 200)
+  }
+  const stop = () => {
+    clearInterval(runtime)
+    runtime = null;
+  }
+
+  const colorPicker = () => {
+    let hexa = '0123456789abcdef';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += hexa[(Math.floor(Math.random() * 16))];
+    }
+    return color;
+  }
+</script>
+
+</html>
